@@ -1,7 +1,6 @@
 import json
 import os
 import urllib
-import simplejson
 import pandas as pd
 
 from flask import Flask, request, make_response
