@@ -1,6 +1,5 @@
 import json
 import os
-import pymysql
 import urllib
 import simplejson
 import pandas as pd
