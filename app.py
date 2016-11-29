@@ -100,7 +100,10 @@ def fetchFaculty(lab):
         if(sub_frame.iloc[0]=="NA"):
             response = "Many researching faculty are involved with this lab. Visit their website for more information."
         else:
-            response = sub_frame.iloc[0]+ " are associated with "+lab
+            if ',' in sub_frame.iloc[0]:
+                response = sub_frame.iloc[0]+ " are associated with "+lab
+            else:
+                response = sub_frame.iloc[0]+ " heads the "+lab
 
     print("Response: "+response)
 
