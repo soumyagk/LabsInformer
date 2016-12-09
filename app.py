@@ -25,6 +25,7 @@ def webhook():
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
+    print "final response: \n"+r
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -89,6 +90,8 @@ def fetchLab(field):
     print("Response: "+response)
 
     json_res = prepareJson(response)
+
+    print "json_res\n"+json_res
     return json_res
 
 def fetchFacLab(faculty):
