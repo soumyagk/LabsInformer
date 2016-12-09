@@ -99,10 +99,12 @@ def fetchFacLab(faculty):
     print count
     response = ""
     if count > 1:
-        response = "There are multiple labs led by "+faculty+". They are"
+        response = "There are multiple labs led by "+faculty+". They are "
         for i in range(count):
             response += sub_frame.iloc[i]
-            if i != count-1:
+            if i == count-2:
+                response += " and "
+            elif i != count-1:
                 response += ", "
         response += "."
     elif count == 1:
