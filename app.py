@@ -23,9 +23,10 @@ def webhook():
     res = processRequest(req)
 
     res = json.dumps(res, indent=4)
-    # print(res)
+    print("Final response")
+    print(res)
     r = make_response(res)
-    print("final response: \n"+r)
+    # print("final response: \n",r)
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -62,8 +63,7 @@ def processRequest(req):
             print("No faculty name received")
             return res
         res = fetchFacLab(faculty)
-    
-    print("Finally: \n"+res)
+
     return res
 
 def fetchLab(field):
@@ -90,8 +90,6 @@ def fetchLab(field):
     print("Response: "+response)
 
     json_res = prepareJson(response)
-
-    print "json_res\n"+json_res
     return json_res
 
 def fetchFacLab(faculty):
