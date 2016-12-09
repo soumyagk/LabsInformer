@@ -67,7 +67,7 @@ def processRequest(req):
 
 def fetchLab(field):
     print("fetching lab from given field")
-    sub_frame = lab_data[lab_data['field']==field]['lab_name']
+    sub_frame = lab_data[lab_data['field'].str.contains(field)]['lab_name']
     count = sub_frame.shape[0]
     response = ""
     if count > 1:
