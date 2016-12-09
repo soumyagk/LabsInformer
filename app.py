@@ -1,5 +1,6 @@
 import json
 import os
+import random
 import urllib
 import pandas as pd
 
@@ -78,7 +79,11 @@ def fetchLab(field):
     elif count == 1:
         response = sub_frame.iloc[0]+" works in the field of "+field
     else:
-        response = default_resp
+        magicno = random.randint(0,25)
+        lab = lab_data.loc[magicno,'lab_name']
+        field = lab_data.loc[magicno,'field']
+        response = "I'm afraid I am not aware of labs in this field under the School of Interactive Computing. "
+        response += "Did you know "+ lab +" works in the field of "+field+"?"
 
     print("Response: "+response)
 
@@ -99,7 +104,7 @@ def fetchFacLab(faculty):
     print count
     response = ""
     if count > 1:
-        response = "There are multiple labs led by "+faculty+". They are "
+        response = "There are multiple labs associated with "+faculty+". They are "
         for i in range(count):
             response += sub_frame.iloc[i]
             if i == count-2:
@@ -108,9 +113,9 @@ def fetchFacLab(faculty):
                 response += ", "
         response += "."
     elif count == 1:
-        response = faculty + "heads the "+ sub_frame.iloc[0]
+        response = faculty + " heads the "+ sub_frame.iloc[0]
     else:
-        response = default_resp
+        response = faculty +" does not seem to be working in any specific lab currently. Not that I'm aware of."
 
     print("Response: "+response)
 
@@ -124,6 +129,8 @@ def fetchDesc(lab):
     response = default_resp
     if count > 0:
         response = sub_frame.iloc[0]
+    else:
+        response = default_resp
 
     print("Response: "+response)
 
@@ -144,6 +151,8 @@ def fetchFaculty(lab):
                 response = sub_frame.iloc[0]+ " are associated with "+lab
             else:
                 response = sub_frame.iloc[0]+ " heads the "+lab
+    else:
+        response = "That's odd. I don't think I know about this lab. I need to up my game!"
 
     print("Response: "+response)
 
@@ -157,6 +166,8 @@ def fetchWebsite(lab):
     response = default_resp
     if count > 0:
         response = "You can visit "+sub_frame.iloc[0]+ " for more information on "+lab
+    else:
+        response = default_resp
 
     print("Response: "+response)
 
