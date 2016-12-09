@@ -62,6 +62,7 @@ def processRequest(req):
             return res
         res = fetchFacLab(faculty)
     
+    print "Finally: \n"+res
     return res
 
 def fetchLab(field):
@@ -115,6 +116,7 @@ def fetchFacLab(faculty):
     elif count == 1:
         response = faculty + " heads the "+ sub_frame.iloc[0]
     else:
+
         response = faculty +" does not seem to be working in any specific lab currently. Not that I'm aware of."
 
     print("Response: "+response)
