@@ -87,7 +87,8 @@ def fetchLab(field):
 
 def fetchFacLab(faculty):
     print("fetching lab from given faculty")
-    sub_frame = lab_data[faculty in lab_data['faculty']]['lab_name']
+    sub_frame = lab_data[lab_data['faculty'].str.contains(faculty)]['lab_name']
+    print sub_frame.head()
     # gender = faculty_data[faculty_data['faculty']==faculty]['gender']
     # pronoun = ""
     # if gender == 'female':
@@ -95,6 +96,7 @@ def fetchFacLab(faculty):
     # else:
     #     pronoun = "he" 
     count = sub_frame.shape[0]
+    print count
     response = ""
     if count > 1:
         response = "There are multiple labs led by "+faculty+". They are"
@@ -132,8 +134,9 @@ def fetchFaculty(lab):
     count = sub_frame.shape[0]
     response = default_resp
     if count > 0:
-        if(sub_frame.iloc[0]=="NA"):
-            response = "Many researching faculty are involved with this lab. Visit their website for more information."
+        if(sub_frame.iloc[0]=="multiple"):
+            response = "Many researching faculty are involved with this lab. Visit their website for more information. "
+            response += lab_data[lab_data['lab_name']==lab]['website'].iloc[0]
         else:
             if ',' in sub_frame.iloc[0]:
                 response = sub_frame.iloc[0]+ " are associated with "+lab
