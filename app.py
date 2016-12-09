@@ -25,7 +25,7 @@ def webhook():
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
-    print "final response: \n"+r
+    print("final response: \n"+r)
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -63,7 +63,7 @@ def processRequest(req):
             return res
         res = fetchFacLab(faculty)
     
-    print "Finally: \n"+res
+    print("Finally: \n"+res)
     return res
 
 def fetchLab(field):
@@ -97,7 +97,7 @@ def fetchLab(field):
 def fetchFacLab(faculty):
     print("fetching lab from given faculty")
     sub_frame = lab_data[lab_data['faculty'].str.contains(faculty)]['lab_name']
-    print sub_frame.head()
+    print(sub_frame.head())
     # gender = faculty_data[faculty_data['faculty']==faculty]['gender']
     # pronoun = ""
     # if gender == 'female':
@@ -105,7 +105,6 @@ def fetchFacLab(faculty):
     # else:
     #     pronoun = "he" 
     count = sub_frame.shape[0]
-    print count
     response = ""
     if count > 1:
         response = "There are multiple labs associated with "+faculty+". They are "
