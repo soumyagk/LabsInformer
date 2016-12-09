@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 default_resp = "Please visit www.ic.gatech.edu/content/labs-groups for more information"
 lab_data = pd.read_excel("chatbotdb.xlsx")
+faculty_data = pd.read_excel("faculty.xlsx")
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -53,6 +54,12 @@ def processRequest(req):
             print("No lab name received")
             return res
         res = fetchWebsite(lab)
+    elif req.get("result").get("action") == "faculty_2_lab":
+        faculty = params.get("faculty")
+        if not faculty:
+            print("No faculty name received")
+            return res
+        res = fetchFacLab(faculty)
     
     return res
 
@@ -70,6 +77,34 @@ def fetchLab(field):
         response += field
     elif count == 1:
         response = sub_frame.iloc[0]+" works in the field of "+field
+    else:
+        response = default_resp
+
+    print("Response: "+response)
+
+    json_res = prepareJson(response)
+    return json_res
+
+def fetchFacLab(faculty):
+    print("fetching lab from given faculty")
+    sub_frame = lab_data[faculty in lab_data['faculty']]['lab_name']
+    # gender = faculty_data[faculty_data['faculty']==faculty]['gender']
+    # pronoun = ""
+    # if gender == 'female':
+    #     pronoun = "she"
+    # else:
+    #     pronoun = "he" 
+    count = sub_frame.shape[0]
+    response = ""
+    if count > 1:
+        response = "There are multiple labs led by "+faculty+". They are"
+        for i in range(count):
+            response += sub_frame.iloc[i]
+            if i != count-1:
+                response += ", "
+        response += "."
+    elif count == 1:
+        response = faculty + "heads the "+ sub_frame.iloc[0]
     else:
         response = default_resp
 
